@@ -16,6 +16,7 @@ export default function UserUnRegistered() {
       // local json-db는 id로 불러오기 가능
       const response = await apiRequest(`/user/${userKey}`);
       setUser(response);
+      window.localStorage.setItem("userKey", response.id);
     } catch (error) {
       setSnackbar({
         open: true,
@@ -33,6 +34,7 @@ export default function UserUnRegistered() {
         birthDate,
       });
       await setUser(response);
+      window.localStorage.setItem("userKey", response.id);
       setSnackbar({ open: true, message: `반갑습니다 ${response.name}님` });
     } catch (error) {
       setSnackbar({ open: true, message: "에러 발생", severity: "error" });
