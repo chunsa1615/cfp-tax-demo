@@ -12,19 +12,6 @@ import ko from "date-fns/locale/ko";
 import { userStates } from "./states";
 
 const Router = () => {
-  const [user, setUser] = useRecoilState(userStates);
-
-  const signInWithKey = async userKey => {
-    try {
-      // local json-db는 id로 불러오기 가능
-      const response = await apiRequest(`/user/${userKey}`);
-      setUser(response);
-      console.log("sign in success");
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
     <BrowserRouter>
       <LocalizationProvider dateAdapter={AdapterDateFns} locale={ko}>
