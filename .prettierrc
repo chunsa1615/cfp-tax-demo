@@ -4,5 +4,6 @@
   "useTabs": false,
   "semi": true,
   "arrowParens": "avoid",
-  "endOfLine": "auto"
+  "endOfLine": "auto",
+  "singleQuote": true
 }

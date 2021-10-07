@@ -10,16 +10,16 @@ import {
   Input,
   TextField,
   Typography,
-} from "@mui/material";
-import React, { useState } from "react";
+} from '@mui/material';
+import React, { useState } from 'react';
 
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
 // MainDialog
 export default function MainDialog(props) {
   const [openDialog, setOpenDialog] = useState(false);
-  const [birthDate, setBirthDate] = useState("");
-  const [text, setText] = useState("");
+  const [birthDate, setBirthDate] = useState('');
+  const [text, setText] = useState('');
 
   const handleClickOpen = () => {
     setOpenDialog(true);

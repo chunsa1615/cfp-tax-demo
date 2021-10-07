@@ -1,10 +1,10 @@
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { amber, cyan, green, grey, teal, yellow } from "@mui/material/colors";
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { amber, cyan, green, grey, teal, yellow } from '@mui/material/colors';
 
-import { Box } from "@mui/material";
-import CssBaseline from "@mui/material/CssBaseline";
-import PropTypes from "prop-types";
-import React from "react";
+import { Box } from '@mui/material';
+import CssBaseline from '@mui/material/CssBaseline';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 const theme = createTheme({
   breakpoints: {
@@ -24,7 +24,7 @@ const theme = createTheme({
   palette: {
     primary: {
       main: teal[900],
-      contrastText: "white",
+      contrastText: 'white',
     },
     secondary: {
       main: green[400],
@@ -34,14 +34,14 @@ const theme = createTheme({
     },
     background: {
       default: yellow[50],
-      appBar: yellow["A700"],
+      appBar: yellow['A700'],
       // contrastText: grey[700],
       // paper: yellow[100],
     },
     text: {
       //   primary: cyan[400],
       //   secondary: cyan[100],
-      appBar: "#424242",
+      appBar: '#424242',
     },
   },
   typography: {
@@ -59,11 +59,11 @@ export default function ThemeWrapper(props) {
     <ThemeProvider theme={theme}>
       <Box
         sx={{
-          width: ["100%", "100%", 640],
-          margin: "0 auto",
-          borderLeft: [0, 0, "1px solid #bbb"],
-          borderRight: [0, 0, "1px solid #bbb"],
-          minHeight: "100vh",
+          width: ['100%', '100%', 640],
+          margin: '0 auto',
+          borderLeft: [0, 0, '1px solid #bbb'],
+          borderRight: [0, 0, '1px solid #bbb'],
+          minHeight: '100vh',
           // bgcolor: "white",
         }}
       >

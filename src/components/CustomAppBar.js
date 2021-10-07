@@ -1,10 +1,10 @@
-import { AppBar, IconButton, Toolbar, Typography } from "@mui/material";
-import { useHistory, useLocation } from "react-router-dom";
+import { AppBar, IconButton, Toolbar, Typography } from '@mui/material';
+import { useHistory, useLocation } from 'react-router-dom';
 
-import { ArrowBack } from "@mui/icons-material";
-import React from "react";
-import { useRecoilValue } from "recoil";
-import { userStates } from "../states";
+import { ArrowBack } from '@mui/icons-material';
+import React from 'react';
+import { useRecoilValue } from 'recoil';
+import { userStates } from '../states';
 
 export default function CustomAppBar() {
   const user = useRecoilValue(userStates);
@@ -20,7 +20,7 @@ export default function CustomAppBar() {
       position="static"
     >
       <Toolbar>
-        {location.pathname === "/" ? (
+        {location.pathname === '/' ? (
           <></>
         ) : (
           <IconButton
@@ -39,9 +39,9 @@ export default function CustomAppBar() {
           fontWeight="bold"
           sx={{
             flexGrow: 1,
-            textAlign: "center",
+            textAlign: 'center',
             fontSize: 18,
-            ml: () => (location.pathname === "/" ? 0 : -6),
+            ml: () => (location.pathname === '/' ? 0 : -6),
           }}
         >
           연말정산 세금 환급 점검

@@ -1,7 +1,7 @@
-import { Button } from "@mui/material";
-import React from "react";
-import { UploadForm } from ".";
-import { useHistory } from "react-router-dom";
+import { Button } from '@mui/material';
+import React from 'react';
+import { UploadForm } from '.';
+import { useHistory } from 'react-router-dom';
 
 export default function UserRegistered() {
   const history = useHistory();
@@ -15,7 +15,7 @@ export default function UserRegistered() {
       <Button
         size="large"
         variant="outlined"
-        onClick={() => history.push("edit")}
+        onClick={() => history.push('edit')}
       >
         저 연말정산 잘 하고 있나요? (자료입력)
       </Button>

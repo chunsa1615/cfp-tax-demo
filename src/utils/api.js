@@ -1,11 +1,11 @@
-import axios from "axios";
+import axios from 'axios';
 
-const baseUrl = "http://localhost:8000";
+const baseUrl = 'http://localhost:8000';
 
-export default async (path, method = "GET", data = null) => {
+export default async (path, method = 'GET', data = null) => {
   const response = await axios({
     url: `${baseUrl}${path}`,
-    headers: { "Content-Type": "application/json" },
+    headers: { 'Content-Type': 'application/json' },
     method,
     data: JSON.stringify(data),
   });

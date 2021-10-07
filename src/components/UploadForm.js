@@ -1,14 +1,14 @@
-import { Button, FormControl, styled } from "@mui/material";
-import React, { useState } from "react";
+import { Button, FormControl, styled } from '@mui/material';
+import React, { useState } from 'react';
 
-import { LoadingButton } from "@mui/lab";
-import PropTypes from "prop-types";
-import { UploadFile } from "@mui/icons-material";
-import { snackbarState } from "../states";
-import { useSetRecoilState } from "recoil";
+import { LoadingButton } from '@mui/lab';
+import PropTypes from 'prop-types';
+import { UploadFile } from '@mui/icons-material';
+import { snackbarState } from '../states';
+import { useSetRecoilState } from 'recoil';
 
-const Input = styled("input")({
-  display: "none",
+const Input = styled('input')({
+  display: 'none',
 });
 
 export default function UploadForm({ disabled, buttonText }) {
@@ -26,8 +26,8 @@ export default function UploadForm({ disabled, buttonText }) {
           // setOpen(true);
           setSnackbar({
             open: true,
-            message: "선택된 파일이 없습니다.",
-            severity: "error",
+            message: '선택된 파일이 없습니다.',
+            severity: 'error',
           });
           return;
         }
