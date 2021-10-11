@@ -7,36 +7,12 @@ import {
   ListItem,
   TextField,
 } from '@mui/material';
-import React, { forwardRef } from 'react';
 
-import { DesktopDatePicker } from '@mui/lab';
-import NumberFormat from 'react-number-format';
+import CustomDatePicker from './CustomDatePicker';
+import CustomTextFieldWon from './CustomTextFieldWon';
+import CustomTextarea from './CustomTextarea';
 import PropTypes from 'prop-types';
-
-const NumberFormatCustom = forwardRef(function NumberFormatCustom(props, ref) {
-  const { onChange, ...other } = props;
-
-  return (
-    <NumberFormat
-      {...other}
-      getInputRef={ref}
-      onValueChange={values => {
-        onChange({
-          target: {
-            value: values.value,
-          },
-        });
-      }}
-      thousandSeparator
-      isNumericString
-      prefix="₩ "
-    />
-  );
-});
-
-NumberFormatCustom.propTypes = {
-  onChange: PropTypes.func.isRequired,
-};
+import React from 'react';
 
 export default function CustomFieldListType(props) {
   const { type, setFields, fields, currentField, label, helperText } = props;
@@ -45,31 +21,12 @@ export default function CustomFieldListType(props) {
     switch (type) {
       case 'date':
         return (
-          <DesktopDatePicker
-            disableFuture
+          <CustomDatePicker
+            setFields={setFields}
+            fields={fields}
+            currentField={currentField}
             label={label}
-            // mask="____/__/__"
-            openTo="year"
-            // views={["year", "month", "day"]}
-            value={
-              fields[currentField] === ''
-                ? new Date()
-                : new Date(fields[currentField])
-            }
-            onChange={newValue => {
-              setFields({ ...fields, [currentField]: newValue });
-            }}
-            renderInput={params => (
-              <TextField
-                sx={{
-                  width: '100%',
-                  // '& > div': { flexDirection: 'row-reverse' },
-                }}
-                {...params}
-                InputProps={params.InputProps}
-                helperText={helperText}
-              />
-            )}
+            helperText={helperText}
           />
         );
       case 'string':
@@ -84,36 +41,54 @@ export default function CustomFieldListType(props) {
             fullWidth
           />
         );
-      case 'won':
+      case 'textarea':
+        return (
+          <CustomTextarea
+            setFields={setFields}
+            fields={fields}
+            currentField={currentField}
+            label={label}
+            helperText={helperText}
+          />
+        );
+      case 'number':
         return (
           <TextField
             label={label}
-            type="text"
+            type="number"
             value={fields[currentField]}
             onChange={e =>
               setFields({ ...fields, [currentField]: e.target.value })
             }
-            InputProps={{
-              inputComponent: NumberFormatCustom,
-            }}
             fullWidth
+          />
+        );
+      case 'won':
+        return (
+          <CustomTextFieldWon
+            setFields={setFields}
+            fields={fields}
+            currentField={currentField}
+            label={label}
+            helperText={helperText}
           />
         );
       case 'check':
         return (
-          <FormControlLabel
-            label={label}
-            sx={{ pl: 1 }}
-            control={
-              <Checkbox
-                checked={fields[currentField]}
-                onChange={e =>
-                  setFields({ ...fields, [currentField]: e.target.checked })
-                }
-                inputProps={{ 'aria-label': 'controlled' }}
-              />
-            }
-          />
+          <Box>
+            <FormControlLabel
+              label={label}
+              sx={{ pl: 1 }}
+              control={
+                <Checkbox
+                  checked={fields[currentField]}
+                  onChange={e =>
+                    setFields({ ...fields, [currentField]: e.target.checked })
+                  }
+                />
+              }
+            />
+          </Box>
         );
       case 'subCheck':
         return (
@@ -131,7 +106,6 @@ export default function CustomFieldListType(props) {
                       [currentField]: e.target.checked,
                     })
                   }
-                  inputProps={{ 'aria-label': 'controlled' }}
                 />
               }
             />

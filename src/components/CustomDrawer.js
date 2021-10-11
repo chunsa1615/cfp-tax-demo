@@ -47,6 +47,7 @@ export default function CustomDrawer(props) {
   const [openDialog, setOpenDialog] = useState(false);
   const [drawerState, setDrawerState] = useState(false);
 
+  console.log(fields);
   useEffect(() => {
     console.log(user);
     user[collectionName][fieldsName].isModified
@@ -115,7 +116,7 @@ export default function CustomDrawer(props) {
           type={e.type}
           setFields={setFields}
           fields={fields}
-          currentField={`field${index}`}
+          currentField={`field${e.fieldIndex}`}
           label={e.label}
         />
       ))}
