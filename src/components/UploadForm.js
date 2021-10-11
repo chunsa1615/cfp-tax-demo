@@ -36,6 +36,7 @@ export default function UploadForm({ disabled, buttonText }) {
           await setLoading(false);
         }, 2000);
         console.log(e);
+        console.log(e.target[0].files[0]);
       }}
     >
       <FormControl fullWidth>

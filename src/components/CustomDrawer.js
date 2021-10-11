@@ -19,6 +19,7 @@ import {
 } from '@mui/material';
 import { ContactSupport, Mail, MoveToInbox } from '@mui/icons-material';
 import React, { Suspense, useEffect, useState } from 'react';
+import { mapToFields, mapToFieldsLabel } from '../models';
 import { snackbarState, userStates } from '../states';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
@@ -26,7 +27,7 @@ import { CustomFieldListType } from '.';
 import { DesktopDatePicker } from '@mui/lab';
 import PropTypes from 'prop-types';
 import { apiRequest } from '../utils';
-import { mapToFieldList } from '../models';
+import { userSelector } from '../states/userStates';
 
 export default function CustomDrawer(props) {
   const {
@@ -41,14 +42,16 @@ export default function CustomDrawer(props) {
   const [date, setDate] = useState(new Date());
   const [fields, setFields] = useState({});
   // console.log(fields);
-  const setUser = useSetRecoilState(userStates);
+  const setUser = useSetRecoilState(userSelector);
   const [snacks, setSnacks] = useRecoilState(snackbarState);
   const [openDialog, setOpenDialog] = useState(false);
   const [drawerState, setDrawerState] = useState(false);
 
   useEffect(() => {
-    // if (user[collectionName][fieldsName])
-    //   setFields(mapToFieldList(collectionName, fieldsName));
+    console.log(user);
+    user[collectionName][fieldsName].isModified
+      ? setFields(user[collectionName][fieldsName])
+      : setFields(mapToFields(collectionName, fieldsName));
   }, []);
   const toggleDrawer = open => event => {
     if (
@@ -79,6 +82,7 @@ export default function CustomDrawer(props) {
         ...user[collectionName],
         [fieldsName]: {
           ...fields,
+          isModified: true,
         },
       },
     };
@@ -104,57 +108,17 @@ export default function CustomDrawer(props) {
   };
 
   const list = () => (
-    <List sx={{ pb: 5 }}>
-      {['All mail', 'Trash', 'Spam'].map((text, index) => (
-        <ListItem button key={text}>
-          <ListItemIcon>
-            {index % 2 === 0 ? <MoveToInbox /> : <Mail />}
-          </ListItemIcon>
-          <ListItemText primary={text} />
-        </ListItem>
+    <List sx={{ pb: 8 }}>
+      {mapToFieldsLabel(fieldsName).map((e, index) => (
+        <CustomFieldListType
+          key={index}
+          type={e.type}
+          setFields={setFields}
+          fields={fields}
+          currentField={`field${index}`}
+          label={e.label}
+        />
       ))}
-      <CustomFieldListType
-        type="date"
-        setFields={setFields}
-        fields={fields}
-        currentField="field1"
-        label="출생"
-      />
-      <CustomFieldListType
-        type="string"
-        setFields={setFields}
-        fields={fields}
-        currentField="field2"
-        label="스트링"
-      />
-      <CustomFieldListType
-        type="won"
-        setFields={setFields}
-        fields={fields}
-        currentField="field6"
-        label="원화"
-      />
-      <CustomFieldListType
-        type="check"
-        setFields={setFields}
-        fields={fields}
-        currentField="field3"
-        label="체크박스"
-      />
-      <CustomFieldListType
-        type="subCheck"
-        setFields={setFields}
-        fields={fields}
-        currentField="field4"
-        label="그룹 체크박스"
-      />
-      <CustomFieldListType
-        type="subCheck"
-        setFields={setFields}
-        fields={fields}
-        currentField="field5"
-        label="그룹 체크박스"
-      />
     </List>
   );
 
@@ -186,9 +150,8 @@ export default function CustomDrawer(props) {
           <Container
             sx={{
               width: '100%',
-              minHeight: '95vh',
+              height: '95vh',
               pt: 2,
-              pb: 5,
             }}
             role="presentation"
           >
@@ -214,7 +177,6 @@ export default function CustomDrawer(props) {
                 textAlign: 'center',
               }}
               variant="h3"
-              inlist
             >
               {title}
             </Typography>
@@ -231,9 +193,9 @@ export default function CustomDrawer(props) {
           }}
         >
           <Button
-            sx={{ flex: 1, bgcolor: 'white' }}
-            variant="outlined"
+            sx={{ flex: 1 }}
             onClick={handleDialogOpen}
+            variant="contained"
           >
             취소
           </Button>

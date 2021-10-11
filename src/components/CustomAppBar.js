@@ -4,10 +4,10 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { ArrowBack } from '@mui/icons-material';
 import React from 'react';
 import { useRecoilValue } from 'recoil';
+import { userSelector } from '../states/userStates';
 import { userStates } from '../states';
 
 export default function CustomAppBar() {
-  const user = useRecoilValue(userStates);
   const history = useHistory();
   const location = useLocation();
 

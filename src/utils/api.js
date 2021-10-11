@@ -3,31 +3,35 @@ import axios from 'axios';
 const baseUrl = 'http://localhost:8000';
 
 export default async (path, method = 'GET', data = null) => {
-  const response = await axios({
-    url: `${baseUrl}${path}`,
-    headers: { 'Content-Type': 'application/json' },
-    method,
-    data: JSON.stringify(data),
-  });
+  try {
+    const response = await axios({
+      url: `${baseUrl}${path}`,
+      method,
+      headers: { 'Content-Type': 'application/json' },
+      // TODO: 개발 환경 / 프로덕션 환경 변수로 분기하기?
+      // headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      data: JSON.stringify(data),
+      // data: Object.entries(e => {})
+    });
 
-  return response.data;
-  // return axios({
-  //   url: `${baseUrl}${path}`,
-  //   headers: { "Content-Type": "application/json" },
-  //   method,
-  //   data: JSON.stringify(data),
-  // })
-  //   .catch(error => {
-  //     console.error(error);
-  //   })
-  //   .then(response => {
-  //     return response.data;
-  //   });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
 };
 
-// Create an Error with custom message and code
-export function CustomError(code, message) {
-  const error = new Error(message);
-  error.code = code;
-  return error;
-}
+const convertKeySnakeToCamel = obj => {
+  return Object.keys(obj).reduce((acc, elem) => {
+    return { ...acc, [snakeToCamel(elem)]: obj[elem] };
+  }, {});
+};
+
+const snakeToCamel = str => {
+  return str;
+};
+
+// TODO: 필요한가?
+// const camelToSnake = str => {
+//   return str;
+// }

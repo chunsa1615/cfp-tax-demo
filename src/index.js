@@ -1,5 +1,7 @@
+import React, { Suspense } from 'react';
+
 import { ErrorBoundary } from './utils';
-import React from 'react';
+import { Loading } from './components';
 import ReactDOM from 'react-dom';
 import { RecoilRoot } from 'recoil';
 import Router from './Router';
@@ -10,7 +12,9 @@ ReactDOM.render(
     <ErrorBoundary>
       <RecoilRoot>
         <ThemeWrapper>
-          <Router />
+          <Suspense fallback={<Loading />}>
+            <Router />
+          </Suspense>
         </ThemeWrapper>
       </RecoilRoot>
     </ErrorBoundary>

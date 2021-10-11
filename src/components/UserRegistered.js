@@ -1,10 +1,19 @@
+import React, { useEffect } from 'react';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+
 import { Button } from '@mui/material';
-import React from 'react';
 import { UploadForm } from '.';
+import { snackbarState } from '../states';
 import { useHistory } from 'react-router-dom';
+import { userSelector } from '../states/userStates';
 
 export default function UserRegistered() {
   const history = useHistory();
+  const [user, setUser] = useRecoilState(userSelector);
+  const setSnackbar = useSetRecoilState(snackbarState);
+  useEffect(() => {
+    setSnackbar({ open: true, message: `반갑습니다 ${user.name}님` });
+  }, [user]);
   return (
     <>
       <UploadForm

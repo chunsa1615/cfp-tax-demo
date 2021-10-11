@@ -1,6 +1,7 @@
 import { MainDialog, UploadForm } from '.';
 import { snackbarState, userStates } from '../states';
 import { useRecoilState, useSetRecoilState } from 'recoil';
+import { userKeyState, userSelector } from '../states/userStates';
 
 import { Button } from '@mui/material';
 import React from 'react';
@@ -8,22 +9,18 @@ import { apiRequest } from '../utils';
 import models from '../models';
 
 export default function UserUnRegistered() {
-  const [user, setUser] = useRecoilState(userStates);
+  const [user, setUser] = useRecoilState(userSelector);
+  const [userKey, setUserKey] = useRecoilState(userKeyState);
   const setSnackbar = useSetRecoilState(snackbarState);
 
   const signInWithKey = async userKey => {
-    try {
-      // local json-db는 id로 불러오기 가능
-      const response = await apiRequest(`/user/${userKey}`);
-      setUser(response);
-      window.localStorage.setItem('userKey', response.id);
-    } catch (error) {
-      setSnackbar({
-        open: true,
-        message: '잘못된 요청입니다.',
-        severity: 'error',
-      });
-    }
+    // local json-db는 id로 불러오기 가능
+    // const response = await apiRequest(`/user/${userKey}`);
+    setUserKey(userKey);
+    window.localStorage.setItem('userKey', userKey);
+
+    if (!user) setSnackbar({ open: true, message: '오류', severity: 'error' });
+    // else setSnackbar({ open: true, message: `반갑습니다` });
   };
 
   const createUser = async (name, birthDate) => {
@@ -33,10 +30,10 @@ export default function UserUnRegistered() {
         name,
         birthDate,
       });
-      await setUser(response);
+      setUserKey(response.id);
       window.localStorage.setItem('userKey', response.id);
-      setSnackbar({ open: true, message: `반갑습니다 ${response.name}님` });
     } catch (error) {
+      console.log(error);
       setSnackbar({ open: true, message: '에러 발생', severity: 'error' });
     }
   };
