@@ -23,7 +23,6 @@ const NumberFormatCustom = forwardRef(function NumberFormatCustom(props, ref) {
       onValueChange={values => {
         onChange({
           target: {
-            name: props.name,
             value: values.value,
           },
         });
@@ -36,12 +35,11 @@ const NumberFormatCustom = forwardRef(function NumberFormatCustom(props, ref) {
 });
 
 NumberFormatCustom.propTypes = {
-  name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
 };
 
 export default function CustomFieldListType(props) {
-  const { type, setFields, fields, currentField, label } = props;
+  const { type, setFields, fields, currentField, label, helperText } = props;
 
   const fieldType = type => {
     switch (type) {
@@ -53,7 +51,11 @@ export default function CustomFieldListType(props) {
             // mask="____/__/__"
             openTo="year"
             // views={["year", "month", "day"]}
-            value={fields[currentField]}
+            value={
+              fields[currentField] === ''
+                ? new Date()
+                : new Date(fields[currentField])
+            }
             onChange={newValue => {
               setFields({ ...fields, [currentField]: newValue });
             }}
@@ -61,10 +63,11 @@ export default function CustomFieldListType(props) {
               <TextField
                 sx={{
                   width: '100%',
-                  '& > div': { flexDirection: 'row-reverse' },
+                  // '& > div': { flexDirection: 'row-reverse' },
                 }}
                 {...params}
                 InputProps={params.InputProps}
+                helperText={helperText}
               />
             )}
           />
@@ -149,4 +152,5 @@ CustomFieldListType.propTypes = {
   fields: PropTypes.object,
   currentField: PropTypes.string,
   label: PropTypes.string,
+  helperText: PropTypes.string,
 };
