@@ -1,5 +1,4 @@
 import { MainDialog, UploadForm } from '.';
-import { snackbarState, userStates } from '../states';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { userKeyState, userSelector } from '../states/userStates';
 
@@ -7,6 +6,7 @@ import { Button } from '@mui/material';
 import React from 'react';
 import { apiRequest } from '../utils';
 import models from '../models';
+import { snackbarState } from '../states';
 
 export default function UserUnRegistered() {
   const [user, setUser] = useRecoilState(userSelector);
@@ -20,7 +20,6 @@ export default function UserUnRegistered() {
     window.localStorage.setItem('userKey', userKey);
 
     if (!user) setSnackbar({ open: true, message: '오류', severity: 'error' });
-    // else setSnackbar({ open: true, message: `반갑습니다` });
   };
 
   const createUser = async (name, birthDate) => {

@@ -167,6 +167,7 @@ export const mapToFields = (collectionName, fieldsName, selector) => {
           field8: '',
           field9: '',
           field10: '',
+          field11: '',
         };
       case '친모':
       case '배우자 친모':
@@ -183,12 +184,14 @@ export const mapToFields = (collectionName, fieldsName, selector) => {
           field9: '',
           field10: '',
           field11: '',
+          field12: '',
         };
       case '자녀':
       case '손자녀':
       case '위탁아동':
       case '입양자':
         return {
+          type: selector,
           field1: false,
           field2: false,
           field3: '',
@@ -205,6 +208,7 @@ export const mapToFields = (collectionName, fieldsName, selector) => {
       case '배우자 형제자매':
       case '기초수급자':
         return {
+          type: selector,
           field1: false,
           field2: false,
           field3: false,
@@ -229,31 +233,78 @@ export const mapToFieldsLabel = (fieldsName, selector) => {
     case 'b1':
       // prettier-ignore
       return selector === '친모' || selector === '배우자 친모'
-        ? {
-          field1: { type: 'check', label: '' },
-          field2: false,
-          field3: false,
-          field4: false,
-          field5: '',
-          field6: '',
-          field7: '',
-          field8: '',
-          field9: '',
-          field10: '',
-          field11: '',
-        }
-        : {
-          field1: { type: 'check', label: '' },
-          field2: false,
-          field3: false,
-          field4: '',
-          field5: '',
-          field6: '',
-          field7: '',
-          field8: '',
-          field9: '',
-          field10: '',
-        };
+        ? [
+          { type: 'check', label: '신고 소득 500만원이하', fieldIndex: 1 },
+          { type: 'check', label: '타 가족 기본공제  안받음', fieldIndex: 2 },
+          { type: 'check', label: '인우확인서 증빙 가능', fieldIndex: 3 },
+          { type: 'check', label: '2020년 사망', fieldIndex: 4 },
+          { type: 'number', label: '출생년도', fieldIndex: 5 },
+          { type: 'string', label: '지병명', fieldIndex: 6 },
+          { type: 'date', label: '약 먹기 시작한 월', fieldIndex: 7 },
+          {
+            type: 'none',
+            label: `※ 다른 가족이 공제 받지 않은 금액`
+          },
+          { type: 'won', label: '의료비', fieldIndex: 8 },
+          { type: 'won', label: '신용카드 등', fieldIndex: 9 },
+          { type: 'won', label: '종교기부금', fieldIndex: 10 },
+          { type: 'won', label: '보장성보험료', fieldIndex: 11 },
+          { type: 'textarea', label: '기타문의', fieldIndex: 12 },
+        ]
+        : [
+          { type: 'check', label: '신고 소득 500만원이하', fieldIndex: 1 },
+          { type: 'check', label: '타 가족 기본공제  안받음', fieldIndex: 2 },
+          { type: 'check', label: '2020년 사망', fieldIndex: 3 },
+          { type: 'number', label: '출생년도', fieldIndex: 4 },
+          { type: 'string', label: '지병명', fieldIndex: 5 },
+          { type: 'date', label: '약 먹기 시작한 월', fieldIndex: 6 },
+          {
+            type: 'none',
+            label: `※ 다른 가족이 공제 받지 않은 금액`
+          },
+          { type: 'won', label: '의료비', fieldIndex: 7 },
+          { type: 'won', label: '신용카드 등', fieldIndex: 8 },
+          { type: 'won', label: '종교기부금', fieldIndex: 9 },
+          { type: 'won', label: '보장성보험료', fieldIndex: 10 },
+          { type: 'textarea', label: '기타문의', fieldIndex: 11 },
+        ];
+    case 'b2':
+      return [
+        { type: 'check', label: '신고 소득 500만원이하', fieldIndex: 1 },
+        { type: 'check', label: '타 가족 기본공제  안받음', fieldIndex: 2 },
+        { type: 'number', label: '출생년도', fieldIndex: 3 },
+        { type: 'string', label: '지병명', fieldIndex: 4 },
+        { type: 'date', label: '약 먹기 시작한 월', fieldIndex: 5 },
+        {
+          type: 'none',
+          label: `※ 다른 가족이 공제 받지 않은 금액`,
+        },
+        { type: 'won', label: '의료비', fieldIndex: 6 },
+        { type: 'won', label: '교육비 (해외포함)', fieldIndex: 7 },
+        { type: 'won', label: '신용카드 등', fieldIndex: 8 },
+        { type: 'won', label: '종교기부금', fieldIndex: 9 },
+        { type: 'won', label: '보장성보험료', fieldIndex: 10 },
+        { type: 'textarea', label: '기타문의', fieldIndex: 11 },
+      ];
+    case 'b3':
+      return [
+        { type: 'check', label: '신고 소득 500만원이하', fieldIndex: 1 },
+        { type: 'check', label: '타 가족 기본공제  안받음', fieldIndex: 2 },
+        { type: 'check', label: '주민등록 동거 또는 일시 퇴거', fieldIndex: 3 },
+        { type: 'number', label: '출생년도', fieldIndex: 4 },
+        { type: 'string', label: '지병명', fieldIndex: 5 },
+        { type: 'date', label: '약 먹기 시작한 월', fieldIndex: 6 },
+        {
+          type: 'none',
+          label: `※ 다른 가족이 공제 받지 않은 금액`,
+        },
+        { type: 'won', label: '의료비', fieldIndex: 7 },
+        { type: 'won', label: '교육비 (해외포함)', fieldIndex: 8 },
+        { type: 'won', label: '신용카드 등', fieldIndex: 9 },
+        { type: 'won', label: '종교기부금', fieldIndex: 10 },
+        { type: 'won', label: '보장성보험료', fieldIndex: 11 },
+        { type: 'textarea', label: '기타문의', fieldIndex: 12 },
+      ];
     case 'i1':
       return [
         { type: 'check', label: '세대주', fieldIndex: 1 },

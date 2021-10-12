@@ -6,16 +6,19 @@ import { TextField } from '@mui/material';
 export default function CustomTextarea(props) {
   const { setFields, fields, currentField, label, helperText } = props;
   const [length, setLength] = useState(0);
+  const maxLength = 500;
   return (
     <TextField
-      label={label + ` (${length}/500)`}
+      label={label + ` (${length}/${maxLength})`}
       type="text"
       value={fields[currentField]}
       minRows={3}
       multiline={3}
       onChange={e => {
-        setFields({ ...fields, [currentField]: e.target.value });
-        setLength(e.target.value.length);
+        if (length < maxLength) {
+          setFields({ ...fields, [currentField]: e.target.value });
+          setLength(e.target.value.length);
+        }
       }}
       fullWidth
     />
@@ -23,7 +26,6 @@ export default function CustomTextarea(props) {
 }
 CustomTextarea.propTypes = {
   setFields: PropTypes.func,
-  // value: PropTypes.string,
   fields: PropTypes.object,
   currentField: PropTypes.string,
   label: PropTypes.string,

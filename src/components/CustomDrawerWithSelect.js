@@ -1,3 +1,4 @@
+import { Add, ContactSupport } from '@mui/icons-material';
 import {
   Box,
   Button,
@@ -8,22 +9,33 @@ import {
   DialogContentText,
   DialogTitle,
   Drawer,
+  FormControl,
   IconButton,
+  InputLabel,
   List,
+  MenuItem,
+  OutlinedInput,
+  Select,
   Typography,
 } from '@mui/material';
-import { ContactSupport, Mail, MoveToInbox } from '@mui/icons-material';
 import React, { Suspense, useEffect, useState } from 'react';
-import { mapToFields, mapToFieldsLabel } from '../models';
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import { userSelector, userState } from '../states/userStates';
+import {
+  basicSelectorOption1,
+  basicSelectorOption2,
+  basicSelectorOption3,
+  mapToFields,
+  mapToFieldsLabel,
+} from '../models';
+import { snackbarState, userState } from '../states';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
 import { CustomFieldListType } from '.';
+import CustomTooltip from './CustomTooltip';
 import PropTypes from 'prop-types';
 import { apiRequest } from '../utils';
-import { snackbarState } from '../states';
+import { userSelector } from '../states/userStates';
 
-export default function CustomDrawer(props) {
+export default function CustomDrawerWithSelect(props) {
   const {
     infoTop,
     tooltipLink,
@@ -34,16 +46,39 @@ export default function CustomDrawer(props) {
     user,
   } = props;
   const [fields, setFields] = useState({});
-  const setUser = useSetRecoilState(userState);
+  const setUser = useSetRecoilState(userSelector);
+  const currentUser = useRecoilValue(userState);
   const [snacks, setSnacks] = useRecoilState(snackbarState);
   const [openDialog, setOpenDialog] = useState(false);
   const [drawerState, setDrawerState] = useState(false);
+  const [selector, setSelector] = useState('');
+  const [addBtnDisable, setAddBtnDisable] = useState(true);
+  const selectorOptions = () => {
+    switch (fieldsName) {
+      case 'b1':
+        return basicSelectorOption1;
+      case 'b2':
+        return basicSelectorOption2;
+      case 'b3':
+        return basicSelectorOption3;
+    }
+  };
+  // console.log(fields);
+  useEffect(() => {
+    if (selector !== '') {
+      setFields(mapToFields(collectionName, fieldsName, selector));
+      setAddBtnDisable(false);
+    }
+  }, [selector]);
 
   useEffect(() => {
-    user[collectionName][fieldsName].isModified
-      ? setFields(user[collectionName][fieldsName])
-      : setFields(mapToFields(collectionName, fieldsName));
+    if (user[collectionName][fieldsName].length > 0) {
+      setUser(user);
+    }
+    setSelector('');
+    setFields({});
   }, []);
+
   const toggleDrawer = open => event => {
     if (
       event &&
@@ -56,20 +91,8 @@ export default function CustomDrawer(props) {
   };
 
   const handleRequest = async () => {
-    const userData = {
-      ...user,
-      [collectionName]: {
-        ...user[collectionName],
-        [fieldsName]: {
-          ...fields,
-          isModified: true,
-        },
-      },
-    };
-
-    const response = await apiRequest(`/user/${user.id}`, 'PUT', userData);
+    const response = await apiRequest(`/user/${user.id}`, 'PUT', currentUser);
     setDrawerState(false);
-    setUser(userData);
     setSnacks({ open: true, message: '저장되었습니다.', severity: 'success' });
   };
 
@@ -86,9 +109,36 @@ export default function CustomDrawer(props) {
     setOpenDialog(false);
   };
 
+  const handleSelectorChange = e => {
+    setSelector(e.target.value);
+  };
+
+  const addFieldsList = () => {
+    const userData = {
+      ...user,
+      [collectionName]: {
+        ...user[collectionName],
+        [fieldsName]: currentUser
+          ? [...currentUser[collectionName][fieldsName], fields]
+          : [fields],
+      },
+    };
+    // let count = 1;
+    // currentUser[collectionName][fieldsName].forEach(fields => {
+    //   if (fields.type === selector) count++;
+    // });
+    // let lastIndex = userData[collectionName][fieldsName].length - 1;
+    // userData[collectionName][fieldsName][lastIndex].type += count;
+
+    setUser(userData);
+    setFields({});
+    setAddBtnDisable(true);
+    setSelector('');
+  };
+
   const list = () => (
     <List sx={{ pb: 8 }}>
-      {mapToFieldsLabel(fieldsName).map((e, index) => (
+      {mapToFieldsLabel(fieldsName, selector).map((e, index) => (
         <CustomFieldListType
           key={index}
           type={e.type}
@@ -159,8 +209,60 @@ export default function CustomDrawer(props) {
             >
               {title}
             </Typography>
+            <FormControl
+              sx={{ display: 'flex', m: 1, width: 'auto', flexFlow: 'nowrap' }}
+            >
+              <InputLabel>선택</InputLabel>
+              <Select
+                fullWidth
+                value={selector}
+                onChange={handleSelectorChange}
+                input={<OutlinedInput label={'선택'} />}
+              >
+                {selectorOptions().map(option => (
+                  <MenuItem key={option} value={option}>
+                    {option}
+                  </MenuItem>
+                ))}
+              </Select>
+              <Button
+                disabled={addBtnDisable}
+                onClick={addFieldsList}
+                variant="contained"
+                sx={{ minWidth: 48, ml: 1 }}
+              >
+                선택 항목 입력 완료 및 추가
+                {/* <Add /> */}
+              </Button>
+            </FormControl>
             {titleDesc && <Typography>{titleDesc}</Typography>}
-            {list()}
+            {currentUser && (
+              <Container sx={{ p: 1 }}>
+                <Typography>추가된 항목</Typography>
+                {currentUser[collectionName][fieldsName].map((e, i) => (
+                  <CustomTooltip
+                    key={i}
+                    fieldsName={fieldsName}
+                    item={e}
+                    deleteItem={(e, i) => {
+                      const newArr = [
+                        ...currentUser[collectionName][fieldsName],
+                      ];
+                      newArr.splice(i, 1);
+                      let userData = {
+                        ...currentUser,
+                        [collectionName]: {
+                          ...currentUser[collectionName],
+                          [fieldsName]: newArr,
+                        },
+                      };
+                      setUser(userData);
+                    }}
+                  />
+                ))}
+              </Container>
+            )}
+            {Object.keys(fields).length === 0 && !fields.type ? <></> : list()}
           </Container>
         </Suspense>
         <Box
@@ -207,7 +309,7 @@ export default function CustomDrawer(props) {
   );
 }
 
-CustomDrawer.propTypes = {
+CustomDrawerWithSelect.propTypes = {
   infoTop: PropTypes.string,
   tooltipLink: PropTypes.string,
   title: PropTypes.string,

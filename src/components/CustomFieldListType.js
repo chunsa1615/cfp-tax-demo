@@ -3,7 +3,6 @@ import {
   Checkbox,
   Divider,
   FormControlLabel,
-  FormGroup,
   ListItem,
   TextField,
 } from '@mui/material';
@@ -122,7 +121,6 @@ export default function CustomFieldListType(props) {
 CustomFieldListType.propTypes = {
   type: PropTypes.string,
   setFields: PropTypes.func,
-  // value: PropTypes.string,
   fields: PropTypes.object,
   currentField: PropTypes.string,
   label: PropTypes.string,
