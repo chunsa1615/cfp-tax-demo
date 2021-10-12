@@ -185,7 +185,9 @@ export default function CustomDrawerWithSelect(props) {
             role="presentation"
           >
             <Box sx={{ display: 'flex' }}>
-              <Typography>{infoTop}</Typography>
+              <Typography sx={{ lineHeight: [1.5, 1.5, '40px'] }}>
+                {infoTop}
+              </Typography>
               <IconButton
                 color="primary"
                 component="span"

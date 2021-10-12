@@ -60,7 +60,8 @@ export default function ThemeWrapper(props) {
       <Box
         sx={{
           width: ['100%', '100%', 640],
-          margin: '0 auto',
+          margin: ['0 auto', '0 auto', 0],
+          marginLeft: ['inherit', 'inherit', 'calc(50vw - 320px)'],
           borderLeft: [0, 0, '1px solid #bbb'],
           borderRight: [0, 0, '1px solid #bbb'],
           minHeight: '100vh',

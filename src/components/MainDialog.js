@@ -51,7 +51,7 @@ export default function MainDialog(props) {
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">{props.variable}</DialogTitle>
-        <DialogContent sx={{ pb: 5 }}>
+        <DialogContent sx={{ pb: 4 }}>
           <DialogContentText sx={{ marginBottom: 1 }}>
             {props.description}
           </DialogContentText>
