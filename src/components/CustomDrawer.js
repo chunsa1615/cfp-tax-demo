@@ -15,7 +15,7 @@ import {
 import { ContactSupport, Mail, MoveToInbox } from '@mui/icons-material';
 import React, { Suspense, useEffect, useState } from 'react';
 import { mapToFields, mapToFieldsLabel } from '../models';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { userSelector, userState } from '../states/userStates';
 
 import { CustomFieldListType } from '.';
@@ -34,12 +34,15 @@ export default function CustomDrawer(props) {
     user,
   } = props;
   const [fields, setFields] = useState({});
-  const setUser = useSetRecoilState(userState);
+  // const setUser = useSetRecoilState(userState);
+  const setUser = useSetRecoilState(userSelector);
+  const currentUser = useRecoilValue(userState);
   const [snacks, setSnacks] = useRecoilState(snackbarState);
   const [openDialog, setOpenDialog] = useState(false);
   const [drawerState, setDrawerState] = useState(false);
 
   useEffect(() => {
+    console.log(currentUser);
     user[collectionName][fieldsName].isModified
       ? setFields(user[collectionName][fieldsName])
       : setFields(mapToFields(collectionName, fieldsName));
@@ -57,9 +60,9 @@ export default function CustomDrawer(props) {
 
   const handleRequest = async () => {
     const userData = {
-      ...user,
+      ...currentUser,
       [collectionName]: {
-        ...user[collectionName],
+        ...currentUser[collectionName],
         [fieldsName]: {
           ...fields,
           isModified: true,

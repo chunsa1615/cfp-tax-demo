@@ -14,6 +14,7 @@ export default function UserMain() {
   const [user, setUser] = useRecoilState(userSelector);
   const setSnackbar = useSetRecoilState(snackbarState);
 
+  console.log(user);
   useEffect(() => {
     // if (!user) setSnackbar({ open: true, message: '오류', severity: 'error' });
     // if (user) setSnackbar({ open: true, message: '성공' });
@@ -23,7 +24,11 @@ export default function UserMain() {
       <Stack spacing={2}>
         <MainTitle />
         {/* TODO: userKey로 불러오기? */}
-        {user && user.id ? <UserRegistered /> : <UserUnRegistered />}
+        {user && (user.id || user.user_key) ? (
+          <UserRegistered />
+        ) : (
+          <UserUnRegistered />
+        )}
         <Divider />
         <Box>
           <Link href="#">크몽에서 결제하기</Link>

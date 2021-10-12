@@ -15,7 +15,6 @@ export default function CustomTooltip({ item, deleteItem, fieldsName }) {
   const handleTooltipOpen = () => {
     setOpen(true);
   };
-  console.log(item);
 
   const labels = mapToFieldsLabel(fieldsName, item.type);
   labels.pop();

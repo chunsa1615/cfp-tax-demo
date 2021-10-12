@@ -91,8 +91,10 @@ export default function CustomDrawerWithSelect(props) {
   };
 
   const handleRequest = async () => {
+    console.log(currentUser);
     const response = await apiRequest(`/user/${user.id}`, 'PUT', currentUser);
     setDrawerState(false);
+    setUser(currentUser);
     setSnacks({ open: true, message: '저장되었습니다.', severity: 'success' });
   };
 
@@ -115,9 +117,9 @@ export default function CustomDrawerWithSelect(props) {
 
   const addFieldsList = () => {
     const userData = {
-      ...user,
+      ...currentUser,
       [collectionName]: {
-        ...user[collectionName],
+        ...currentUser[collectionName],
         [fieldsName]: currentUser
           ? [...currentUser[collectionName][fieldsName], fields]
           : [fields],

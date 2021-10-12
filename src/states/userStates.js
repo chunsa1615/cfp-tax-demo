@@ -18,10 +18,20 @@ export const userSelector = selector({
     const userId = get(userKeyState);
     if (!userId) return null;
 
-    const response = await apiRequest(`/user/${userId}`, 'GET');
-    if (!response) return null;
+    let response = {};
 
-    return response;
+    if (process.env.REACT_APP_LOCALHOST) {
+      response = await apiRequest(`/user/${userId}`, 'GET');
+      if (!response) return null;
+      return response;
+    } else {
+      response = await apiRequest(`/is_exist_key`, 'POST', {
+        user_key: userId,
+      });
+      console.log(response);
+      if (response.code < 0) return null;
+      return response.data;
+    }
   },
   set: ({ set }, user) => {
     console.log(user);

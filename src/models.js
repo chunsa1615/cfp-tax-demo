@@ -2,7 +2,7 @@ const models = {
   user: {
     name: '',
     userKey: '',
-    id: '',
+    ID: '',
     birthDate: '',
     mainUploadedFile: '', // from file 적절한 형식? file path? file name?
     partnerUploadedFile: '',
@@ -30,14 +30,13 @@ const models = {
       }, // 전세자금대출
       i2: {
         isModified: false,
-        filed1: false,
-        filed2: false,
         field1: false,
+        field2: false,
         field3: false,
         field4: false,
-        filed5: false,
+        field5: false,
         field6: false,
-        filed7: false,
+        field7: false,
         field8: false,
         field9: false,
         field10: false,

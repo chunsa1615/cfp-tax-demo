@@ -24,13 +24,27 @@ export default function UserUnRegistered() {
 
   const createUser = async (name, birthDate) => {
     try {
-      const response = await apiRequest(`/user`, 'POST', {
-        ...models.user,
-        name,
-        birthDate,
-      });
-      setUserKey(response.id);
-      window.localStorage.setItem('userKey', response.id);
+      let response = {};
+      if (process.env.REACT_APP_LOCALHOST) {
+        response = await apiRequest(`/user`, 'POST', {
+          ...models.user,
+          name,
+          birthDate,
+        });
+        console.log(response);
+        setUserKey(response.id);
+        window.localStorage.setItem('userKey', response.id);
+      } else {
+        response = await apiRequest(`/add_adjustment`, 'POST', {
+          name: name,
+          birth_date: birthDate,
+        });
+        console.log(response);
+        // console.log(user);
+        // await apiRequest(`/save`, 'POST', {});
+        setUserKey(response.data.user_key);
+        window.localStorage.setItem('userKey', response.data.user_key);
+      }
     } catch (error) {
       console.log(error);
       setSnackbar({ open: true, message: '에러 발생', severity: 'error' });

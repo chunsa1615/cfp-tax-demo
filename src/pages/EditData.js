@@ -1,13 +1,21 @@
 import { Button, Container, Divider, Stack, Typography } from '@mui/material';
 import { CustomDrawer, MainDialog } from '../components';
+import React, { useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
+import { userSelector, userState } from '../states/userStates';
 
 import CustomDrawerWithSelect from '../components/CustomDrawerWithSelect';
-import React from 'react';
-import { userSelector } from '../states/userStates';
+import models from '../models';
 
 export default function EditData() {
-  const user = useRecoilValue(userSelector);
+  let [user, setUser] = useRecoilState(userSelector);
+  useEffect(() => {
+    if (!user || !user.basic) {
+      setUser({
+        ...models.user,
+      });
+    }
+  }, []);
 
   return (
     <Container>
