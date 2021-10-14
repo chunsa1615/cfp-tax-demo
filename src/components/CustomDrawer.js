@@ -108,6 +108,7 @@ export default function CustomDrawer(props) {
           fields={fields}
           currentField={`field${e.fieldIndex}`}
           label={e.label}
+          helperText={e.helperText}
         />
       ))}
     </List>

@@ -5,6 +5,7 @@ import {
   FormControlLabel,
   ListItem,
   TextField,
+  Typography,
 } from '@mui/material';
 
 import CustomDatePicker from './CustomDatePicker';
@@ -51,6 +52,8 @@ export default function CustomFieldListType(props) {
             helperText={helperText}
           />
         );
+      case 'none':
+        return <Typography>{label}</Typography>;
       case 'number':
         return (
           <TextField
@@ -88,6 +91,9 @@ export default function CustomFieldListType(props) {
                 />
               }
             />
+            <Typography sx={{ px: 1, fontSize: '0.8rem' }}>
+              {helperText}
+            </Typography>
           </Box>
         );
       case 'subCheck':

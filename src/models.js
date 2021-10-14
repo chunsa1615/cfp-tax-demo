@@ -348,15 +348,11 @@ export const mapToFieldsLabel = (fieldsName, selector) => {
         { type: 'check', label: '중도금대출(무주택세대주)', fieldIndex: 8 },
         { type: 'check', label: '장기주택대출 전환조건', fieldIndex: 9 },
         { type: 'check', label: '오피스텔 아님', fieldIndex: 10 },
-        { type: 'check', label: '채무인수 대출', fieldIndex: 11 },
         {
-          type: 'none',
-          label: `주택 수 포함
-          - 무허가 주택
-          - 농가주택
-          - 사업용 주택
-          - 지분이 가장 큰 상속 주택
-          `,
+          type: 'check',
+          label: '과세 년도 말 세대 1주택 보유',
+          fieldIndex: 11,
+          helperText: `주택 수 포함: 무허가 주택, 농가주택, 사업용 주택, 지분이 가장 큰 상속 주택`,
         },
         { type: 'won', label: '취득기준시가/분양가', fieldIndex: 12 },
         { type: 'date', label: '소유권이전/보존등기(빠른날)', fieldIndex: 13 },
