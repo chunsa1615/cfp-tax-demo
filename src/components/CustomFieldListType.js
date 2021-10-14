@@ -12,6 +12,7 @@ import CustomTextFieldWon from './CustomTextFieldWon';
 import CustomTextarea from './CustomTextarea';
 import PropTypes from 'prop-types';
 import React from 'react';
+import { UploadForm } from '.';
 
 export default function CustomFieldListType(props) {
   const { type, setFields, fields, currentField, label, helperText } = props;
@@ -110,6 +111,8 @@ export default function CustomFieldListType(props) {
             />
           </Box>
         );
+      case 'upload':
+        return <UploadForm buttonText={label} saveType="partner" />;
       default:
         break;
     }

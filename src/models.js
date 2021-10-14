@@ -4,8 +4,8 @@ const models = {
     userKey: '',
     ID: '',
     birthDate: '',
-    mainUploadedFile: '', // from file 적절한 형식? file path? file name?
-    partnerUploadedFile: '',
+    main_uploaded_file: [], // from file 적절한 형식? file path? file name?
+    partner_uploaded_file: [],
     basic: {
       b1: [],
       b2: [],
@@ -134,6 +134,10 @@ const models = {
         field10: '',
         field11: '',
       }, // 월세액
+      i9: {
+        isModified: false,
+        field1: '',
+      },
     },
   },
 };
@@ -520,6 +524,11 @@ export const mapToFieldsLabel = (fieldsName, selector) => {
         { type: 'won', label: '월세액', fieldIndex: 10 },
         { type: 'textarea', label: '기타문의', fieldIndex: 11 },
       ]; // 월세액
+    case 'i9':
+      return [
+        { type: 'upload', label: '배우자의 2020년도 원천징수영수증 업로드' },
+        { type: 'textarea', label: '기타문의', fieldIndex: 1 },
+      ];
   }
 };
 

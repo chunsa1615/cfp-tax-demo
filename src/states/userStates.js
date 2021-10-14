@@ -1,6 +1,7 @@
 import { atom, selector } from 'recoil';
 
 import { apiRequest } from '../utils';
+import models from '../models';
 
 export const userState = atom({
   key: 'UserState',
@@ -20,7 +21,7 @@ export const userSelector = selector({
 
     let response = {};
 
-    if (process.env.REACT_APP_LOCALHOST) {
+    if (process.env.REACT_APP_LOCALHOST === 'true') {
       response = await apiRequest(`/user/${userId}`, 'GET');
       if (!response) return null;
       return response;
@@ -29,8 +30,24 @@ export const userSelector = selector({
         user_key: userId,
       });
       console.log(response);
+
       if (response.code < 0) return null;
-      return response.data;
+
+      console.log(response.data);
+      if (response.data.basic === null) {
+        return {
+          ...response.data,
+          basic: models.user.basic,
+          item: models.user.item,
+        };
+      } else {
+        return {
+          ...response.data,
+          basic: JSON.parse(response.data.basic),
+          item: JSON.parse(response.data.item),
+        };
+      }
+      // return JSON.parse(response.data);
     }
   },
   set: ({ set }, user) => {

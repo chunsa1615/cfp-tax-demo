@@ -1,8 +1,9 @@
+import { Button, Typography } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
-import { Button } from '@mui/material';
 import { UploadForm } from '.';
+import models from '../models';
 import { snackbarState } from '../states';
 import { useHistory } from 'react-router-dom';
 import { userSelector } from '../states/userStates';
@@ -13,12 +14,20 @@ export default function UserRegistered() {
   const setSnackbar = useSetRecoilState(snackbarState);
   useEffect(() => {
     setSnackbar({ open: true, message: `반갑습니다 ${user.name}님` });
+
+    if (!user.basic) {
+      setUser({
+        ...models.user,
+      });
+    }
   }, [user]);
+  console.log(user);
   return (
     <>
       <UploadForm
         disabled={false}
         buttonText="최근 년도(2020년) 원천징수영수증 업로드"
+        saveType="main"
       />
 
       <Button

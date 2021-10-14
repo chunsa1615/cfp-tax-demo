@@ -1,14 +1,14 @@
 import axios from 'axios';
-import querystring from 'querystring';
 
-const baseUrl = process.env.REACT_APP_LOCALHOST
-  ? 'http://localhost:8000'
-  : process.env.REACT_APP_BASE_URL;
+const baseUrl =
+  process.env.REACT_APP_LOCALHOST === 'true'
+    ? 'http://localhost:8000'
+    : process.env.REACT_APP_BASE_URL;
 
 export default async (path, method = 'GET', data = null) => {
   try {
     let response = {};
-    if (process.env.REACT_APP_LOCALHOST) {
+    if (process.env.REACT_APP_LOCALHOST === 'true') {
       response = await axios({
         url: `${baseUrl}${path}`,
         method,
@@ -18,16 +18,18 @@ export default async (path, method = 'GET', data = null) => {
 
       return response.data;
     } else {
+      const formData = new FormData();
+      for await (let entry of Object.entries(data)) {
+        formData.append(entry[0], entry[1]);
+      }
       response = await axios({
         url: `${baseUrl}${path}`,
         method,
-        // headers: { 'Content-Type': 'application/json' },
-        // TODO: 개발 환경 / 프로덕션 환경 변수로 분기하기?
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        data: querystring.stringify(data),
-        // data: Object.entries(e => {})
+        headers: { 'Content-Type': 'multipart/form-data' },
+        data: formData,
       });
 
+      console.log(response.data);
       return response.data;
     }
   } catch (error) {
@@ -35,18 +37,3 @@ export default async (path, method = 'GET', data = null) => {
     return null;
   }
 };
-
-const convertKeySnakeToCamel = obj => {
-  return Object.keys(obj).reduce((acc, elem) => {
-    return { ...acc, [snakeToCamel(elem)]: obj[elem] };
-  }, {});
-};
-
-const snakeToCamel = str => {
-  return str;
-};
-
-// TODO: 필요한가?
-// const camelToSnake = str => {
-//   return str;
-// }

@@ -5,17 +5,9 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { userSelector, userState } from '../states/userStates';
 
 import CustomDrawerWithSelect from '../components/CustomDrawerWithSelect';
-import models from '../models';
 
 export default function EditData() {
   let [user, setUser] = useRecoilState(userSelector);
-  useEffect(() => {
-    if (!user || !user.basic) {
-      setUser({
-        ...models.user,
-      });
-    }
-  }, []);
 
   return (
     <Container>
@@ -146,9 +138,15 @@ export default function EditData() {
           }
         />
         <Divider>맞벌이 점검</Divider>
-        <Button size="large" fullWidth variant="outlined">
-          맞벌이
-        </Button>
+        <CustomDrawer
+          infoTop="[정보 업로드]"
+          tooltipLink="https://blog.naver.com/soleonetech/222487599050"
+          title="맞벌이"
+          // titleDesc="▶ 공제 신청하지 않은 기부금을 입력해 주세요(나이 제한 없음)"
+          collectionName="item"
+          fieldsName="i9"
+          user={user}
+        />
       </Stack>
     </Container>
   );

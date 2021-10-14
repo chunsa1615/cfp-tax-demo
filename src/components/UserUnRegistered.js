@@ -25,7 +25,7 @@ export default function UserUnRegistered() {
   const createUser = async (name, birthDate) => {
     try {
       let response = {};
-      if (process.env.REACT_APP_LOCALHOST) {
+      if (process.env.REACT_APP_LOCALHOST === 'true') {
         response = await apiRequest(`/user`, 'POST', {
           ...models.user,
           name,

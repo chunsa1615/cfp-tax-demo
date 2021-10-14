@@ -34,7 +34,6 @@ export default function CustomDrawer(props) {
     user,
   } = props;
   const [fields, setFields] = useState({});
-  // const setUser = useSetRecoilState(userState);
   const setUser = useSetRecoilState(userSelector);
   const currentUser = useRecoilValue(userState);
   const [snacks, setSnacks] = useRecoilState(snackbarState);
@@ -42,10 +41,11 @@ export default function CustomDrawer(props) {
   const [drawerState, setDrawerState] = useState(false);
 
   useEffect(() => {
-    console.log(currentUser);
     user[collectionName][fieldsName].isModified
       ? setFields(user[collectionName][fieldsName])
       : setFields(mapToFields(collectionName, fieldsName));
+
+    setUser(user);
   }, []);
   const toggleDrawer = open => event => {
     if (
@@ -70,7 +70,16 @@ export default function CustomDrawer(props) {
       },
     };
 
-    const response = await apiRequest(`/user/${user.id}`, 'PUT', userData);
+    let response = {};
+    if (process.env.REACT_APP_LOCALHOST === 'true') {
+      response = await apiRequest(`/user/${user.id}`, 'PUT', userData);
+    } else {
+      response = await apiRequest(`/save`, 'POST', {
+        user_key: user.user_key,
+        item: JSON.stringify(userData.item),
+        basic: JSON.stringify(userData.basic),
+      });
+    }
     setDrawerState(false);
     setUser(userData);
     setSnacks({ open: true, message: '저장되었습니다.', severity: 'success' });
@@ -138,9 +147,7 @@ export default function CustomDrawer(props) {
             role="presentation"
           >
             <Box sx={{ display: 'flex' }}>
-              <Typography sx={{ lineHeight: [1.5, 1.5, '40px'] }}>
-                {infoTop}
-              </Typography>
+              <Typography sx={{ lineHeight: '40px' }}>{infoTop}</Typography>
               <IconButton
                 color="primary"
                 component="span"

@@ -91,8 +91,18 @@ export default function CustomDrawerWithSelect(props) {
   };
 
   const handleRequest = async () => {
-    console.log(currentUser);
-    const response = await apiRequest(`/user/${user.id}`, 'PUT', currentUser);
+    // console.log(currentUser);
+    let response = {};
+    if (process.env.REACT_APP_LOCALHOST === 'true') {
+      response = await apiRequest(`/user/${user.id}`, 'PUT', currentUser);
+    } else {
+      response = await apiRequest(`/save`, 'POST', {
+        user_key: user.user_key,
+        item: JSON.stringify(currentUser.item),
+        basic: JSON.stringify(currentUser.basic),
+      });
+      console.log(response);
+    }
     setDrawerState(false);
     setUser(currentUser);
     setSnacks({ open: true, message: '저장되었습니다.', severity: 'success' });
@@ -187,9 +197,7 @@ export default function CustomDrawerWithSelect(props) {
             role="presentation"
           >
             <Box sx={{ display: 'flex' }}>
-              <Typography sx={{ lineHeight: [1.5, 1.5, '40px'] }}>
-                {infoTop}
-              </Typography>
+              <Typography sx={{ lineHeight: '40px' }}>{infoTop}</Typography>
               <IconButton
                 color="primary"
                 component="span"

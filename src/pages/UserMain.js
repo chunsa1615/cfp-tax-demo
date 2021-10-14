@@ -14,11 +14,6 @@ export default function UserMain() {
   const [user, setUser] = useRecoilState(userSelector);
   const setSnackbar = useSetRecoilState(snackbarState);
 
-  console.log(user);
-  useEffect(() => {
-    // if (!user) setSnackbar({ open: true, message: '오류', severity: 'error' });
-    // if (user) setSnackbar({ open: true, message: '성공' });
-  }, [user]);
   return (
     <Container sx={{ textAlign: 'center' }}>
       <Stack spacing={2}>
