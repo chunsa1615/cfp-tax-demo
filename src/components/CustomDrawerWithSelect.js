@@ -169,6 +169,7 @@ export default function CustomDrawerWithSelect(props) {
         size="large"
         fullWidth
         variant="outlined"
+        color="warning"
         onClick={toggleDrawer(true)}
       >
         {title}
@@ -192,7 +193,7 @@ export default function CustomDrawerWithSelect(props) {
             sx={{
               width: '100%',
               height: '95vh',
-              pt: 2,
+              pt: 4,
             }}
             role="presentation"
           >
@@ -211,10 +212,10 @@ export default function CustomDrawerWithSelect(props) {
             <Typography
               sx={{
                 bgcolor: 'background.appBar',
-                borderRadius: 10,
+                borderRadius: 2,
                 p: 1,
-                mt: 2,
-                mb: 2,
+                mt: 0,
+                mb: 6,
                 textAlign: 'center',
               }}
               variant="h3"
@@ -222,7 +223,7 @@ export default function CustomDrawerWithSelect(props) {
               {title}
             </Typography>
             <FormControl
-              sx={{ display: 'flex', m: 1, width: 'auto', flexFlow: 'nowrap' }}
+              sx={{ display: 'flex', m: 0, width: 'auto', flexFlow: 'nowrap' }}
             >
               <InputLabel>선택</InputLabel>
               <Select
@@ -285,16 +286,28 @@ export default function CustomDrawerWithSelect(props) {
             width: 'inherit',
           }}
         >
-          <Button
-            sx={{ flex: 1 }}
-            onClick={handleDialogOpen}
-            variant="contained"
-          >
-            취소
-          </Button>
-          <Button sx={{ flex: 1 }} variant="contained" onClick={handleRequest}>
-            저장
-          </Button>
+          <Box sx={{ flex: 1, p: 1 }}>
+            <Button
+              onClick={handleDialogOpen}
+              variant="contained"
+              size="large"
+              color="warning"
+              fullWidth
+            >
+              취소
+            </Button>
+          </Box>
+          <Box sx={{ flex: 1, p: 1 }}>
+            <Button
+              variant="contained"
+              size="large"
+              fullWidth
+              color="success"
+              onClick={handleRequest}
+            >
+              저장
+            </Button>
+          </Box>
         </Box>
       </Drawer>
       <Dialog

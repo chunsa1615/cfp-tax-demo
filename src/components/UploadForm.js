@@ -61,7 +61,10 @@ export default function UploadForm({ disabled, buttonText, saveType }) {
       <FormControl fullWidth sx={{ display: 'flex' }}>
         {!disabled && (
           <>
-            <input type="file" multiple name="files[]" id="files" />
+            <label htmlFor="files[]">
+              파일 업로드
+              <input type="file" multiple name="files[]" id="files" />
+            </label>
             <input type="hidden" name="aid" id="aid" value={user.ID} />
             <input type="hidden" name="type" id="type" value={saveType} />
           </>
@@ -74,6 +77,10 @@ export default function UploadForm({ disabled, buttonText, saveType }) {
           startIcon={<UploadFile />}
           loadingPosition="start"
           type="submit"
+          sx={{
+            marginBottom: 1,
+            marginTop: 1,
+          }}
         >
           {buttonText}
         </LoadingButton>

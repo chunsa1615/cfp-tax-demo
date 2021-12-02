@@ -120,6 +120,7 @@ export default function CustomDrawer(props) {
         size="large"
         fullWidth
         variant="outlined"
+        color="warning"
         onClick={toggleDrawer(true)}
       >
         {title}
@@ -143,7 +144,7 @@ export default function CustomDrawer(props) {
             sx={{
               width: '100%',
               height: '95vh',
-              pt: 2,
+              pt: 4,
             }}
             role="presentation"
           >
@@ -162,10 +163,10 @@ export default function CustomDrawer(props) {
             <Typography
               sx={{
                 bgcolor: 'background.appBar',
-                borderRadius: 10,
+                borderRadius: 2,
                 p: 1,
-                mt: 2,
-                mb: 2,
+                mt: 0,
+                mb: 6,
                 textAlign: 'center',
               }}
               variant="h3"
@@ -182,18 +183,31 @@ export default function CustomDrawer(props) {
             bottom: 0,
             display: 'flex',
             width: 'inherit',
+            zIndex: 10,
           }}
         >
-          <Button
-            sx={{ flex: 1 }}
-            onClick={handleDialogOpen}
-            variant="contained"
-          >
-            취소
-          </Button>
-          <Button sx={{ flex: 1 }} variant="contained" onClick={handleRequest}>
-            저장
-          </Button>
+          <Box sx={{ flex: 1, p: 1 }}>
+            <Button
+              onClick={handleDialogOpen}
+              variant="contained"
+              size="large"
+              color="warning"
+              fullWidth
+            >
+              취소
+            </Button>
+          </Box>
+          <Box sx={{ flex: 1, p: 1 }}>
+            <Button
+              variant="contained"
+              size="large"
+              fullWidth
+              color="success"
+              onClick={handleRequest}
+            >
+              저장
+            </Button>
+          </Box>
         </Box>
       </Drawer>
       <Dialog

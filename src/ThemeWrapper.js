@@ -23,25 +23,31 @@ const theme = createTheme({
   },
   palette: {
     primary: {
-      main: teal[900],
-      contrastText: 'white',
+      main: amber[400],
+      contrastText: '#3c2d00',
     },
     secondary: {
-      main: green[400],
+      main: '#ffde82',
     },
     button: {
       main: yellow[800],
+      contrastText: '#3c2d00',
+      boxShadow: 0,
+      '&hover:': {
+        backgroundColor: amber[400],
+        color: '#3c2d00',
+      },
     },
     background: {
-      default: yellow[50],
-      appBar: yellow['A700'],
+      default: '#fafafa',
+      appBar: '#ffc803',
       // contrastText: grey[700],
       // paper: yellow[100],
     },
     text: {
       //   primary: cyan[400],
       //   secondary: cyan[100],
-      appBar: '#424242',
+      appBar: '#3c2d00',
     },
   },
   typography: {
@@ -60,11 +66,11 @@ export default function ThemeWrapper(props) {
       <Box
         sx={{
           width: ['100%', '100%', 640],
-          margin: ['0 auto', '0 auto', 0],
-          marginLeft: ['inherit', 'inherit', 'calc(50vw - 320px)'],
-          borderLeft: [0, 0, '1px solid #bbb'],
-          borderRight: [0, 0, '1px solid #bbb'],
+          margin: ['0 auto', '0 auto', '0 auto'],
+          boxShadow: 3,
           minHeight: '100vh',
+          overflowY: 'hidden',
+          background: 'white',
           // bgcolor: "white",
         }}
       >

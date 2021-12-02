@@ -40,7 +40,7 @@ export default function MainDialog(props) {
       <Button
         size="large"
         variant="outlined"
-        color="primary"
+        color="warning"
         onClick={handleClickOpen}
       >
         {props.buttonLabel}

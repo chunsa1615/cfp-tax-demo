@@ -26,7 +26,9 @@ export default function UserMain() {
         )}
         <Divider />
         <Box>
-          <Link href="#">크몽에서 결제하기</Link>
+          <Link color="#ED6C02" href="#">
+            크몽에서 결제하기
+          </Link>
         </Box>
       </Stack>
     </Container>

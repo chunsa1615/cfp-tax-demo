@@ -26,18 +26,19 @@ export default function UserRegistered() {
     <>
       <UploadForm
         disabled={false}
-        buttonText="최근 년도(2020년) 원천징수영수증 업로드"
+        buttonText="원천징수영수증 (최근 년도) 업로드"
         saveType="main"
       />
 
       <Button
         size="large"
         variant="outlined"
+        color="warning"
         onClick={() => history.push('edit')}
       >
         저 연말정산 잘 하고 있나요? (자료입력)
       </Button>
-      <Button size="large" variant="contained">
+      <Button size="large" variant="contained" color="warning">
         입력완료 자료전송
       </Button>
     </>

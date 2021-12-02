@@ -1,25 +1,49 @@
+import Box from '@mui/material/Box';
 import { Button, Container, Divider, Stack, Typography } from '@mui/material';
+import FmdBadOutlinedIcon from '@mui/icons-material/FmdBadOutlined';
 import { CustomDrawer, MainDialog } from '../components';
 import React, { useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { userSelector, userState } from '../states/userStates';
+import { makeStyles } from '@mui/styles';
 
 import CustomDrawerWithSelect from '../components/CustomDrawerWithSelect';
 
+const useStyles = makeStyles(() => ({
+  titleWrapper: {
+    textAlign: 'center',
+  },
+  title: {
+    lineHeight: 2,
+  },
+  divider: {
+    marginTop: 45,
+  },
+}));
+
 export default function EditData() {
   let [user, setUser] = useRecoilState(userSelector);
+  const classes = useStyles();
 
   return (
     <Container>
       <Stack spacing={2} sx={{ pb: 5 }}>
-        <Typography>
-          소득공제를 잘 받고 있는지 궁금한 항목의 ‘2020’년도 정보를 꼼꼼하게
-          입력해주세요
-        </Typography>
-        <Typography>
-          소득 없는 가족이 아픈 경우 나이를 불문하고 정보 입력!
-        </Typography>
-        <Typography>이미 공제 받은 가족이 아픈 경우 지병명 입력!</Typography>
+        <Box pt={6} pb={6} className={classes.titleWrapper}>
+          <FmdBadOutlinedIcon
+            color="warning"
+            sx={{ fontSize: 120, marginBottom: 3 }}
+          />
+          <Typography className={classes.title}>
+            소득공제를 잘 받고 있는지 궁금한 항목의 ‘2020’년도 정보를 꼼꼼하게
+            입력해주세요☺️
+          </Typography>
+          <Typography className={classes.title}>
+            소득 없는 가족이 아픈 경우 나이를 불문하고 정보 입력❗️
+          </Typography>
+          <Typography className={classes.title}>
+            이미 공제 받은 가족이 아픈 경우 지병명 입력❗️
+          </Typography>
+        </Box>
 
         <Divider>기본 공제 점검</Divider>
         <CustomDrawerWithSelect
@@ -50,7 +74,7 @@ export default function EditData() {
           user={user}
         />
 
-        <Divider>항목 공제 점검</Divider>
+        <Divider sx={{ marginTop: '45px !important' }}>항목 공제 점검</Divider>
 
         <CustomDrawer
           infoTop="[해당되는 체크박스 선택 및 2020년 정보를 입력해 주세요]"
@@ -137,7 +161,7 @@ export default function EditData() {
             )
           }
         />
-        <Divider>맞벌이 점검</Divider>
+        <Divider sx={{ marginTop: '45px !important' }}>맞벌이 점검</Divider>
         <CustomDrawer
           infoTop="[정보 업로드]"
           tooltipLink="https://blog.naver.com/soleonetech/222487599050"

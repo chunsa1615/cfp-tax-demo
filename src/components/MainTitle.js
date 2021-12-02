@@ -4,10 +4,15 @@ import React from 'react';
 
 export default function MainTitle() {
   return (
-    <Box>
-      <Typography variant="h1" fontSize="400%">
-        CFP의
-      </Typography>
+    <Box
+      sx={{
+        paddingTop: 4,
+        paddingBottom: 6,
+        marginBottom: 4,
+        borderBottom: '1px solid #dadada',
+      }}
+    >
+      <Typography variant="h1">CFP의</Typography>
       <Typography variant="h2">
         직장인을 위한 세금 설계
         <br />

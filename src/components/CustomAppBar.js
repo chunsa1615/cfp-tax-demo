@@ -13,6 +13,8 @@ export default function CustomAppBar() {
       sx={{
         background: theme => theme.palette.background.appBar,
         color: theme => theme.palette.text.appBar,
+        boxShadow: 0,
+        borderBottom: '1px solid #eaeaea',
       }}
       position="static"
     >
