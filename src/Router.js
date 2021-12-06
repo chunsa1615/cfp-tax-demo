@@ -14,7 +14,7 @@ const Router = () => {
   const [user, setUser] = useRecoilState(userSelector);
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/app">
       <LocalizationProvider dateAdapter={AdapterDateFns} locale={ko}>
         <CustomAppBar />
         <CustomSnackbar />
