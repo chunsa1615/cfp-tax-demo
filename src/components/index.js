@@ -7,3 +7,4 @@ export { default as UserRegistered } from './UserRegistered';
 export { default as UserUnRegistered } from './UserUnRegistered';
 export { default as CustomDrawer } from './CustomDrawer';
 export { default as CustomFieldListType } from './CustomFieldListType';
+export { default as GetKeyDialog } from './GetKeyDialog';

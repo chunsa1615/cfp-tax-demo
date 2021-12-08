@@ -1,9 +1,9 @@
 import { Button, Divider, Typography } from '@mui/material';
+import { GetKeyDialog, UploadForm } from '.';
 import React, { useEffect } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { userKeyState, userSelector } from '../states/userStates';
 
-import { UploadForm } from '.';
 import models from '../models';
 import { snackbarState } from '../states';
 import { useHistory } from 'react-router-dom';
@@ -44,6 +44,11 @@ export default function UserRegistered() {
         입력완료 자료전송
       </Button>
       <Divider />
+      <GetKeyDialog
+        buttonLabel="키 정보 확인"
+        variable="키 정보 확인"
+        inputLabel1="키 정보"
+      />
       <Button
         size="large"
         variant="outlined"
