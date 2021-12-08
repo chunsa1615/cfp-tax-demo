@@ -102,7 +102,7 @@ export default function UploadForm({ disabled, buttonText, saveType }) {
         </LoadingButton>
       </FormControl>
 
-      {user && user[`${saveType}_uploaded_file`].length > 0 ? (
+      {files.length > 0 ? (
         <Accordion
           sx={{
             bgcolor: 'primary.main',
@@ -123,8 +123,9 @@ export default function UploadForm({ disabled, buttonText, saveType }) {
             <Typography align="center">파일 업로드 내역</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            {files.length > 0 &&
-              files.map(e => <Typography key={e.ID}>{e.file_real}</Typography>)}
+            {files.map(e => (
+              <Typography key={e.ID}>{e.file_real}</Typography>
+            ))}
           </AccordionDetails>
         </Accordion>
       ) : (
