@@ -8,7 +8,7 @@ import {
   styled,
 } from '@mui/material';
 import { ExpandMore, UploadFile } from '@mui/icons-material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { snackbarState, userState } from '../states';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
@@ -22,6 +22,11 @@ export default function UploadForm({ disabled, buttonText, saveType }) {
   const setSnackbar = useSetRecoilState(snackbarState);
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useRecoilState(userSelector);
+  const [files, setFiles] = useState([]);
+
+  useEffect(() => {
+    setFiles(user[`${saveType}_uploaded_file`]);
+  }, []);
   // console.log(user[`${saveType}_uploaded_file`]);
   return (
     <form
@@ -41,21 +46,30 @@ export default function UploadForm({ disabled, buttonText, saveType }) {
 
         const formData = new FormData(e.target);
 
-        const response = await axios.post(
-          `${process.env.REACT_APP_BASE_URL}/upload_files`,
-          formData,
-          {
-            headers: { 'Content-Type': 'multipart/form-data' },
-          },
-        );
+        try {
+          const response = await axios.post(
+            `${process.env.REACT_APP_BASE_URL}/upload_files`,
+            formData,
+            {
+              headers: { 'Content-Type': 'multipart/form-data' },
+            },
+          );
 
-        console.log(response.data);
-        setUser({
-          ...user,
-          [`${saveType}_uploaded_file`]: response.data.data,
-        });
-
-        setLoading(false);
+          console.log(response.data);
+          setUser({
+            ...user,
+            [`${saveType}_uploaded_file`]: response.data.data,
+          });
+          setFiles(response.data.data);
+        } catch (error) {
+          setSnackbar({
+            open: true,
+            message: '오류 발생',
+            severity: 'error',
+          });
+        } finally {
+          setLoading(false);
+        }
       }}
     >
       <FormControl fullWidth sx={{ display: 'flex' }}>
@@ -107,9 +121,8 @@ export default function UploadForm({ disabled, buttonText, saveType }) {
             <Typography align="center">파일 업로드 내역</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            {user[`${saveType}_uploaded_file`].map(e => (
-              <Typography key={e.ID}>{e.file_real}</Typography>
-            ))}
+            {files.length > 0 &&
+              files.map(e => <Typography key={e.ID}>{e.file_real}</Typography>)}
           </AccordionDetails>
         </Accordion>
       ) : (
