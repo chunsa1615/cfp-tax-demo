@@ -11,9 +11,9 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
+import { DesktopDatePicker, MobileDatePicker } from '@mui/lab';
 import React, { useState } from 'react';
 
-import { DesktopDatePicker } from '@mui/lab';
 import PropTypes from 'prop-types';
 
 // MainDialog
@@ -66,18 +66,23 @@ export default function MainDialog(props) {
             />
           )}
           {props.inputLabel2 && (
-            <DesktopDatePicker
+            <MobileDatePicker
+              defaultCalendarMonth={1}
+              okText="확인"
+              cancelText="취소"
               disableMaskedInput
               disableFuture
               label={props.inputLabel2}
               // mask="____/__/__"
               openTo="year"
               // views={["year", "month", "day"]}
-              value={birthDate}
+              value={birthDate ? birthDate : ''}
               onChange={newValue => {
+                console.log(newValue);
                 newValue
                   ? setBirthDate(newValue.toISOString().split('T')[0])
                   : '';
+                console.log(setBirthDate(newValue.toISOString().split('T')[0]));
               }}
               renderInput={params => (
                 <TextField

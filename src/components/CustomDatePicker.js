@@ -1,13 +1,13 @@
+import { DesktopDatePicker, MobileDatePicker } from '@mui/lab';
 import React, { forwardRef } from 'react';
 
-import { DesktopDatePicker } from '@mui/lab';
 import PropTypes from 'prop-types';
 import { TextField } from '@mui/material';
 
 export default function CustomDatePicker(props) {
   const { setFields, fields, currentField, label, helperText } = props;
   return (
-    <DesktopDatePicker
+    <MobileDatePicker
       disableFuture
       label={label}
       // mask="____/__/__"
