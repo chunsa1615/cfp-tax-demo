@@ -25,7 +25,9 @@ export default function UploadForm({ disabled, buttonText, saveType }) {
   const [files, setFiles] = useState([]);
 
   useEffect(() => {
-    setFiles(user[`${saveType}_uploaded_file`]);
+    if (user) {
+      setFiles(user[`${saveType}_uploaded_file`]);
+    }
   }, []);
   // console.log(user[`${saveType}_uploaded_file`]);
   return (
