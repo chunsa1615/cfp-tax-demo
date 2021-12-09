@@ -107,7 +107,7 @@ export default function UploadForm({ disabled, buttonText, saveType }) {
         </LoadingButton>
       </FormControl>
 
-      {files[`${saveType}`].length > 0 ? (
+      {files[`${saveType}`] && files[`${saveType}`].length > 0 ? (
         <Accordion
           sx={{
             bgcolor: 'primary.main',
