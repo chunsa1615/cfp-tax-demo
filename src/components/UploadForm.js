@@ -9,8 +9,8 @@ import {
 } from '@mui/material';
 import { ExpandMore, UploadFile } from '@mui/icons-material';
 import React, { useEffect, useState } from 'react';
-import { snackbarState, userState } from '../states';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { fileState, snackbarState, userState } from '../states';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
 import { LoadingButton } from '@mui/lab';
 import PropTypes from 'prop-types';
@@ -22,14 +22,20 @@ export default function UploadForm({ disabled, buttonText, saveType }) {
   const setSnackbar = useSetRecoilState(snackbarState);
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useRecoilState(userSelector);
-  const [files, setFiles] = useState([]);
+  const [files, setFiles] = useRecoilState(fileState);
 
   useEffect(() => {
-    if (user) {
-      setFiles(user[`${saveType}_uploaded_file`]);
+    console.log(saveType);
+    console.log(files);
+    if (user && files[`${saveType}`].length === 0) {
+      setFiles({
+        ...files,
+        [`${saveType}`]: user[`${saveType}_uploaded_file`],
+      });
     }
+    console.log(user);
   }, []);
-  // console.log(user[`${saveType}_uploaded_file`]);
+
   return (
     <form
       style={{ width: '100%' }}
@@ -47,7 +53,6 @@ export default function UploadForm({ disabled, buttonText, saveType }) {
         setLoading(true);
 
         const formData = new FormData(e.target);
-
         try {
           const response = await axios.post(
             `${process.env.REACT_APP_BASE_URL}/upload_files`,
@@ -58,11 +63,11 @@ export default function UploadForm({ disabled, buttonText, saveType }) {
           );
 
           console.log(response.data);
-          setUser({
-            ...user,
-            [`${saveType}_uploaded_file`]: response.data.data,
+
+          setFiles({
+            ...files,
+            [`${saveType}`]: response.data.data,
           });
-          setFiles(response.data.data);
         } catch (error) {
           setSnackbar({
             open: true,
@@ -102,7 +107,7 @@ export default function UploadForm({ disabled, buttonText, saveType }) {
         </LoadingButton>
       </FormControl>
 
-      {files.length > 0 ? (
+      {files[`${saveType}`].length > 0 ? (
         <Accordion
           sx={{
             bgcolor: 'primary.main',
@@ -123,7 +128,7 @@ export default function UploadForm({ disabled, buttonText, saveType }) {
             <Typography align="center">파일 업로드 내역</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            {files.map(e => (
+            {files[`${saveType}`].map(e => (
               <Typography key={e.ID}>{e.file_real}</Typography>
             ))}
           </AccordionDetails>
