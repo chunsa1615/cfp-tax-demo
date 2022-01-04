@@ -10,9 +10,11 @@ export default function CustomDatePicker(props) {
     <MobileDatePicker
       disableFuture
       label={label}
-      // mask="____/__/__"
+      inputFormat={'yyyy-MM-dd'}
+      format={'yyyy년 MM월 dd일'}
+      mask={'____/__/__'}
       openTo="year"
-      // views={["year", "month", "day"]}
+      views={['year', 'month', 'day']}
       value={
         fields[currentField] === ''
           ? new Date()
@@ -45,4 +47,6 @@ CustomDatePicker.propTypes = {
   currentField: PropTypes.string,
   label: PropTypes.string,
   helperText: PropTypes.string,
+  inputFormat: PropTypes.string,
+  format: PropTypes.string,
 };

@@ -8,6 +8,7 @@ import {
   DialogTitle,
   FormControl,
   Input,
+  Link,
   TextField,
   Typography,
 } from '@mui/material';
@@ -44,14 +45,14 @@ export default function GetKeyDialog(props) {
 
   return (
     <>
-      <Button
-        size="large"
-        variant="outlined"
-        color="warning"
+      <Link
+        href="#"
+        color={'#838383'}
         onClick={handleClickOpen}
+        sx={{ display: 'inline', margin: 1 }}
       >
         {props.buttonLabel}
-      </Button>
+      </Link>
       <Dialog
         open={openDialog}
         onClose={handleClose}

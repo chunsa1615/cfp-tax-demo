@@ -487,7 +487,7 @@ export const mapToFieldsLabel = (fieldsName, selector) => {
         { type: 'won', label: '우리사주 조합기부', fieldIndex: 6 },
         { type: 'won', label: '종교단체', fieldIndex: 7 },
         { type: 'won', label: '종교단체외', fieldIndex: 8 },
-        { type: 'string', label: '특별재난지역 자원봉사', fieldIndex: 9 },
+        { type: 'won', label: '특별재난지역 자원봉사', fieldIndex: 9 },
         { type: 'textarea', label: '기타문의', fieldIndex: 10 },
       ]; // 기부금
     case 'i8':
@@ -516,7 +516,7 @@ export const mapToFieldsLabel = (fieldsName, selector) => {
         },
         { type: 'check', label: '국민주택규모 임차', fieldIndex: 7 },
         { type: 'check', label: '기준시가 3억원 이하 임차', fieldIndex: 8 },
-        { type: 'string', label: '종합소득금액', fieldIndex: 9 },
+        { type: 'won', label: '종합소득금액', fieldIndex: 9 },
         { type: 'won', label: '월세액', fieldIndex: 10 },
         { type: 'textarea', label: '기타문의', fieldIndex: 11 },
       ]; // 월세액

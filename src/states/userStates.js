@@ -29,11 +29,11 @@ export const userSelector = selector({
       response = await apiRequest(`/is_exist_key`, 'POST', {
         user_key: userId,
       });
-      console.log(response);
+      // console.log(response);
 
       if (response.code < 0) return null;
 
-      console.log(response.data);
+      // console.log(response.data);
       if (response.data.basic === null) {
         return {
           ...response.data,
@@ -51,7 +51,7 @@ export const userSelector = selector({
     }
   },
   set: ({ set }, user) => {
-    console.log(user);
+    // console.log(user);
     set(userState, user);
   },
 });

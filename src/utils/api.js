@@ -29,7 +29,7 @@ export default async (path, method = 'GET', data = null) => {
         data: formData,
       });
 
-      console.log(response.data);
+      // console.log(response.data);
       return response.data;
     }
   } catch (error) {

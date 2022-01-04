@@ -25,15 +25,15 @@ export default function UploadForm({ disabled, buttonText, saveType }) {
   const [files, setFiles] = useRecoilState(fileState);
 
   useEffect(() => {
-    console.log(saveType);
-    console.log(files);
+    // console.log(saveType);
+    // console.log(files);
     if (user && files[`${saveType}`].length === 0) {
       setFiles({
         ...files,
         [`${saveType}`]: user[`${saveType}_uploaded_file`],
       });
     }
-    console.log(user);
+    // console.log(user);
   }, []);
 
   return (
@@ -62,7 +62,7 @@ export default function UploadForm({ disabled, buttonText, saveType }) {
             },
           );
 
-          console.log(response.data);
+          // console.log(response.data);
 
           setFiles({
             ...files,
@@ -82,9 +82,26 @@ export default function UploadForm({ disabled, buttonText, saveType }) {
       <FormControl fullWidth sx={{ display: 'flex' }}>
         {!disabled && (
           <>
-            <label htmlFor="files[]">
-              파일 업로드
-              <input type="file" multiple name="files[]" id="files" />
+            <label
+              htmlFor="files"
+              style={{
+                display: 'block',
+                padding: '8px',
+                fontSize: '13px',
+                border: '1px solid #ED6C02',
+                borderRadius: '5px',
+                cursor: 'pointer',
+                background: '#ED6C02',
+              }}
+            >
+              파일 선택
+              <input
+                type="file"
+                multiple
+                name="files[]"
+                id="files"
+                style={{ display: 'none' }}
+              />
             </label>
             <input type="hidden" name="aid" id="aid" value={user.ID} />
             <input type="hidden" name="type" id="type" value={saveType} />
@@ -110,9 +127,11 @@ export default function UploadForm({ disabled, buttonText, saveType }) {
       {files[`${saveType}`] && files[`${saveType}`].length > 0 ? (
         <Accordion
           sx={{
-            bgcolor: 'primary.main',
+            overflow: 'hidden',
+            bgcolor: '#fff8e2',
             color: 'primary.contrastText',
             mt: '0 !important',
+            mb: 3,
           }}
         >
           <AccordionSummary
