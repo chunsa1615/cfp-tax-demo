@@ -1,4 +1,4 @@
-import { DesktopDatePicker, MobileDatePicker } from '@mui/lab';
+import { DesktopDatePicker, DatePicker } from '@mui/lab';
 import React, { forwardRef } from 'react';
 
 import PropTypes from 'prop-types';
@@ -7,11 +7,11 @@ import { TextField } from '@mui/material';
 export default function CustomDatePicker(props) {
   const { setFields, fields, currentField, label, helperText } = props;
   return (
-    <MobileDatePicker
+    <DatePicker
       disableFuture
       label={label}
       inputFormat={'yyyy-MM-dd'}
-      format={'yyyy년 MM월 dd일'}
+      format={'yyyy년 MM월 DD일'}
       mask={'____/__/__'}
       openTo="year"
       views={['year', 'month', 'day']}
