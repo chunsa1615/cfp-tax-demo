@@ -246,7 +246,7 @@ export const mapToFieldsLabel = (fieldsName, selector) => {
           { type: 'date', label: '약 먹기 시작한 월', fieldIndex: 7 },
           {
             type: 'none',
-            label: `※ 다른 가족이 공제 받지 않은 금액`
+            label: `※ 대상자의 아래 항목의 지출 금액이 있으면 입력해 주세요`
           },
           { type: 'won', label: '의료비', fieldIndex: 8 },
           { type: 'won', label: '신용카드 등', fieldIndex: 9 },
@@ -263,7 +263,7 @@ export const mapToFieldsLabel = (fieldsName, selector) => {
           { type: 'date', label: '약 먹기 시작한 월', fieldIndex: 6 },
           {
             type: 'none',
-            label: `※ 다른 가족이 공제 받지 않은 금액`
+            label: `※ 대상자의 아래 항목의 지출 금액이 있으면 입력해 주세요`
           },
           { type: 'won', label: '의료비', fieldIndex: 7 },
           { type: 'won', label: '신용카드 등', fieldIndex: 8 },
@@ -280,7 +280,7 @@ export const mapToFieldsLabel = (fieldsName, selector) => {
         { type: 'date', label: '약 먹기 시작한 월', fieldIndex: 5 },
         {
           type: 'none',
-          label: `※ 다른 가족이 공제 받지 않은 금액`,
+          label: `※ 대상자의 아래 항목의 지출 금액이 있으면 입력해 주세요`,
         },
         { type: 'won', label: '의료비', fieldIndex: 6 },
         { type: 'won', label: '교육비 (해외포함)', fieldIndex: 7 },
@@ -299,7 +299,7 @@ export const mapToFieldsLabel = (fieldsName, selector) => {
         { type: 'date', label: '약 먹기 시작한 월', fieldIndex: 6 },
         {
           type: 'none',
-          label: `※ 다른 가족이 공제 받지 않은 금액`,
+          label: `※ 대상자의 아래 항목의 지출 금액이 있으면 입력해 주세요`,
         },
         { type: 'won', label: '의료비', fieldIndex: 7 },
         { type: 'won', label: '교육비 (해외포함)', fieldIndex: 8 },
@@ -329,7 +329,7 @@ export const mapToFieldsLabel = (fieldsName, selector) => {
         { type: 'subCheck', label: '대출금리 연 1.8% 이상', fieldIndex: 9 },
         { type: 'date', label: '전입일/입주일/연장일(빠른날)', fieldIndex: 10 },
         { type: 'date', label: '대출일', fieldIndex: 11 },
-        { type: 'won', label: '상환원리금', fieldIndex: 12 },
+        { type: 'won', label: '연간 상홖 원리금 합산', fieldIndex: 12 },
         { type: 'textarea', label: '기타문의', fieldIndex: 13 },
       ];
     case 'i2':
@@ -395,7 +395,7 @@ export const mapToFieldsLabel = (fieldsName, selector) => {
         { type: 'check', label: '당첨 후 중도해지', fieldIndex: 7 },
         { type: 'date', label: '가입일', fieldIndex: 8 },
         { type: 'date', label: '해지일', fieldIndex: 9 },
-        { type: 'won', label: '저축액', fieldIndex: 10 },
+        { type: 'won', label: '연간 저축액', fieldIndex: 10 },
         { type: 'textarea', label: '기타문의', fieldIndex: 11 },
       ]; // 주택청약종합저축
     case 'i4':
@@ -404,11 +404,15 @@ export const mapToFieldsLabel = (fieldsName, selector) => {
           type: 'none',
           label: `▶ 본인 사용금액 정보`,
         },
-        { type: 'won', label: '신용카드', fieldIndex: 1 },
-        { type: 'won', label: '현금/체크/직불', fieldIndex: 2 },
-        { type: 'won', label: '대중교통이용', fieldIndex: 3 },
-        { type: 'won', label: '전통시장이용', fieldIndex: 4 },
-        { type: 'won', label: '도서,공연,박물관,미술관 이용', fieldIndex: 5 },
+        { type: 'won', label: '신용카드 금액', fieldIndex: 1 },
+        { type: 'won', label: '현금/체크/직불 사용 금액', fieldIndex: 2 },
+        { type: 'won', label: '대중교통 이용 금액', fieldIndex: 3 },
+        { type: 'won', label: '전통시장 이용 금액', fieldIndex: 4 },
+        {
+          type: 'won',
+          label: '도서,공연,박물관,미술관 이용 금액',
+          fieldIndex: 5,
+        },
         { type: 'textarea', label: '기타문의', fieldIndex: 6 },
       ]; // 신용카드
     case 'i5':
@@ -417,12 +421,13 @@ export const mapToFieldsLabel = (fieldsName, selector) => {
           type: 'none',
           label: `▶ 2020년도에 다른 가족이 ‘기본공제 받지 않은’ 직계존비속, 형제자매 등의 의료비(안경/렌즈 포함)를 입력해주세요(소득, 나이 제한 없음)`,
         },
-        { type: 'won', label: '65세이상 직계존속', fieldIndex: 1 },
-        { type: 'won', label: '장애인', fieldIndex: 2 },
-        { type: 'won', label: '직계존속', fieldIndex: 3 },
-        { type: 'won', label: '형제자매', fieldIndex: 4 },
-        { type: 'won', label: '위 외 부양가족', fieldIndex: 5 },
+        { type: 'won', label: '장애인 의료비 합산(관계 불문)', fieldIndex: 1 },
+        { type: 'won', label: '65세 이상 직계졲속 의료비 합산', fieldIndex: 2 },
+        { type: 'won', label: '65세 이하 직계졲속 의료비 합산', fieldIndex: 3 },
+        { type: 'won', label: '형제자매 의료비 합산', fieldIndex: 4 },
+        { type: 'won', label: '외 부양가족 의료비 합산', fieldIndex: 5 },
         { type: 'number', label: '총 입력인원', fieldIndex: 6 },
+        { type: 'divider' },
         {
           type: 'none',
           label: `▶ 본인 의료비 중 공제받지 않은 아래 항목이 있으면 입력해 주세요`,
@@ -435,8 +440,8 @@ export const mapToFieldsLabel = (fieldsName, selector) => {
           type: 'none',
           label: `▶ 배우자,자녀 의료비(안경/렌즈,난임 포함) 중 본인이 공제 받지 않은 의료비를  입력해 주세요`,
         },
-        { type: 'won', label: '배우자', fieldIndex: 11 },
-        { type: 'won', label: '자녀', fieldIndex: 12 },
+        { type: 'won', label: '배우자 의료비', fieldIndex: 11 },
+        { type: 'won', label: '자녀의료비 합산', fieldIndex: 12 },
         { type: 'number', label: '자녀인원', fieldIndex: 13 },
         { type: 'textarea', label: '기타문의', fieldIndex: 14 },
       ]; // 의료비
@@ -446,17 +451,19 @@ export const mapToFieldsLabel = (fieldsName, selector) => {
           type: 'none',
           label: `▶ 미취학자녀 연간 교육비`,
         },
-        { type: 'won', label: '어린이집', fieldIndex: 1 },
-        { type: 'won', label: '학원', fieldIndex: 2 },
-        { type: 'won', label: '체육시설', fieldIndex: 3 },
+        { type: 'won', label: '어린이집 교육비', fieldIndex: 1 },
+        { type: 'won', label: '학원비', fieldIndex: 2 },
+        { type: 'won', label: '체육시설 이용비', fieldIndex: 3 },
+        { type: 'divider' },
         {
           type: 'none',
           label: `▶ 고등, 대학생 자녀 국외 유학비`,
         },
         { type: 'check', label: '국외교육기관 입증서류 가능', fieldIndex: 4 },
         { type: 'check', label: '국외 교육비 납입영수증 가능', fieldIndex: 5 },
-        { type: 'won', label: '국외 고등학교', fieldIndex: 6 },
-        { type: 'won', label: '국외 대학교', fieldIndex: 7 },
+        { type: 'won', label: '국외 고등학교 교육비', fieldIndex: 6 },
+        { type: 'won', label: '국외 대학교 교육비', fieldIndex: 7 },
+        { type: 'divider' },
         {
           type: 'none',
           label: `▶ (배우자의)형제자매 연간 교육비`,
@@ -465,8 +472,8 @@ export const mapToFieldsLabel = (fieldsName, selector) => {
         { type: 'check', label: '국외교육기관 입증서류 가능', fieldIndex: 9 },
         { type: 'check', label: '국외 교육비 납입영수증 가능', fieldIndex: 10 },
         { type: 'number', label: '인원', fieldIndex: 11 },
-        { type: 'won', label: '국내 대학교', fieldIndex: 12 },
-        { type: 'won', label: '국외 대학교', fieldIndex: 13 },
+        { type: 'won', label: '국내 대학교 교육비', fieldIndex: 12 },
+        { type: 'won', label: '국외 대학교 교육비', fieldIndex: 13 },
         { type: 'textarea', label: '기타문의', fieldIndex: 14 },
       ]; // 교육비
     case 'i7':
@@ -475,19 +482,20 @@ export const mapToFieldsLabel = (fieldsName, selector) => {
           type: 'none',
           label: `▶ 직계존비속, 형제자매의 기부금`,
         },
-        { type: 'won', label: '법정기부', fieldIndex: 1 },
-        { type: 'won', label: '종교단체', fieldIndex: 2 },
-        { type: 'won', label: '종교단체외', fieldIndex: 3 },
+        { type: 'won', label: '법정 기부금', fieldIndex: 1 },
+        { type: 'won', label: '종교단체 기부금', fieldIndex: 2 },
+        { type: 'won', label: '종교단체 외 기부금', fieldIndex: 3 },
+        { type: 'divider' },
         {
           type: 'none',
           label: `▶ 본인 기부금`,
         },
-        { type: 'won', label: '정치기부', fieldIndex: 4 },
-        { type: 'won', label: '법정기부', fieldIndex: 5 },
-        { type: 'won', label: '우리사주 조합기부', fieldIndex: 6 },
-        { type: 'won', label: '종교단체', fieldIndex: 7 },
-        { type: 'won', label: '종교단체외', fieldIndex: 8 },
-        { type: 'won', label: '특별재난지역 자원봉사', fieldIndex: 9 },
+        { type: 'won', label: '정치 기부금', fieldIndex: 4 },
+        { type: 'won', label: '법정 기부금', fieldIndex: 5 },
+        { type: 'won', label: '우리사주조합 기부금', fieldIndex: 6 },
+        { type: 'won', label: '종교단체 기부금', fieldIndex: 7 },
+        { type: 'won', label: '종교단체 외 기부금', fieldIndex: 8 },
+        { type: 'won', label: '특별재난지역 자원봉사 일수', fieldIndex: 9 },
         { type: 'textarea', label: '기타문의', fieldIndex: 10 },
       ]; // 기부금
     case 'i8':

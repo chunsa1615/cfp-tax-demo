@@ -119,6 +119,17 @@ export default function CustomFieldListType(props) {
         );
       case 'upload':
         return <UploadForm buttonText={label} saveType="partner" />;
+      case 'divider':
+        return (
+          <Divider
+            sx={{
+              margin: '30px 0',
+              width: '100%',
+              height: '1px',
+              background: '#f8f8f8',
+            }}
+          ></Divider>
+        );
       default:
         break;
     }
